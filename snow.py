@@ -71,17 +71,15 @@ class Snow():
       exit()
 
     print("Deleting host: " + host + ", sys_id: " + sys_id)
-    ch = input("Are you sure? (y/n) ")
-    #ch = 'y'
+    #ch = input("Are you sure? (y/n) ")
+    ch = 'y'
     if ch == 'n' or ch == 'N':
       exit()
     elif ch == 'y' or ch == 'Y':
       resp = self.cmdb.delete(query={'sys_id': sys_id})
       print(resp)
-      print("Probably a success")
     else:
       print("What?")
-      exit()
 
   def parse_group(self, groups):
     remove = ['OracleLinux-6','OracleLinux-7','OracleLinux-8',
@@ -89,7 +87,9 @@ class Snow():
               'resources_private','dc_eq','dc_eq-resources_private', 
               'dc_une-resources_public','resources_public','kvm-host',
               'dc_gs','dc_gs-resources_private','CentOS-6','CentOS-7',
-              'dc_udc','dc_udc-resources_private','eq','eq_dev','eq_prod']
+              'dc_udc','dc_udc-resources_private','eq','eq_dev','eq_prod',
+              'dc_gs-resources_public','dc_udc-resources_public',
+              'dc_eq-resources_public']
     for rm in remove[:]:
       if rm in groups:
         groups.remove(rm)
@@ -116,6 +116,6 @@ class Snow():
         g = self.parse_group(data['ansible_facts']['ansible_local']['system_info']['server']['ansible_groups'])
         ci['attributes'] = json.dumps(g)
       except KeyError as err:
-        print("Key Error:" + err)
+        print(err)
       f.close()
     return ci
