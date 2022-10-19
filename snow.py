@@ -43,13 +43,13 @@ class Snow():
 
       resp = self.cmdb.update(query={'sys_id': sys_id}, payload=data)
       if resp._response.status_code == 200:
-        print(sys_id + ": Updated Successfully.")
+        print("{}: Updated Successfully.".format(data['name'])
       else:
         print("Probably not a success")
     except KeyError as err:
-      print("Key Error: " + err)
+      print(err)
     except TypeError as err:
-      print("Type Error:" + err)
+      print(err)
 
   def add_host(self, data):
     try:
