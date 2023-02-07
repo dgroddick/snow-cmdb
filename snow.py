@@ -43,7 +43,7 @@ class Snow():
 
       resp = self.cmdb.update(query={'sys_id': sys_id}, payload=data)
       if resp._response.status_code == 200:
-        print("{}: Updated Successfully.".format(data['name'])
+        print("{}: Updated Successfully.".format(data['name']))
       else:
         print("Probably not a success")
     except KeyError as err:
@@ -82,20 +82,16 @@ class Snow():
       print("What?")
 
   def parse_group(self, groups):
+    ''' Parse the groups and remove unwanted '''
     remove = ['OracleLinux-6','OracleLinux-7','OracleLinux-8',
-              'VMware-guest','dc_une','dc_une-resources_private',
-              'resources_private','dc_eq','dc_eq-resources_private', 
-              'dc_une-resources_public','resources_public','kvm-host',
-              'dc_gs','dc_gs-resources_private','CentOS-6','CentOS-7',
-              'dc_udc','dc_udc-resources_private','eq','eq_dev','eq_prod',
-              'dc_gs-resources_public','dc_udc-resources_public',
-              'dc_eq-resources_public']
+              'VMware-guest','CentOS-6','CentOS-7']
     for rm in remove[:]:
       if rm in groups:
         groups.remove(rm)
     return groups
     
   def generate_ci_info(self, datafile):
+    ''' Generate the CI info from Ansible facts into JSON '''
     ci = {}
     f = open(datafile)
     data = json.load(f)

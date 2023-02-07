@@ -6,7 +6,7 @@ import pprint
 import argparse
 from snow import Snow
 
-sn_instance = 'unedev'
+sn_instance = os.getenv('SN_INSTANCE')
 sn_user = os.getenv('SN_USERNAME')
 sn_pw = os.getenv('SN_PASSWORD')
 ci_table = 'cmdb_ci_linux_server'
