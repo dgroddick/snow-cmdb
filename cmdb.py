@@ -37,7 +37,7 @@ def main():
       f = os.path.join(folder, filename)
       if os.path.isfile(f):
         host = now.generate_ci_info(f)
-        if host is "unreachable":
+        if host == "unreachable":
           print("{} is unreachable.".format(filename))
         else:
           now.add_host(host)
@@ -47,7 +47,7 @@ def main():
       f = os.path.join(folder, filename)
       if os.path.isfile(f):
         host = now.generate_ci_info(f)
-        if host is "unreachable":
+        if host == "unreachable":
           print("{} is unreachable.".format(filename))
         else:
           now.update_host(host)
