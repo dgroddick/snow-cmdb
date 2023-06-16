@@ -10,7 +10,6 @@ class Snow():
 
     c = pysnow.Client(instance=self.instance, user=self.username, password=self.password)
     self.cmdb = c.resource(api_path=self.path)
-
   
   def get_all_hosts(self):
     hosts = []
@@ -20,7 +19,6 @@ class Snow():
       hosts.append({record['name']: record['sys_id']})
 
     return hosts
-
 
   def get_host(self, name):
     resp = self.cmdb.get(query={'name': name}, stream=True)
@@ -56,12 +54,10 @@ class Snow():
     try:
       host = self.get_host(data['name'])
       if host is not None:
-        #print("Trying {}".format(data['name']))
         print("{} already exists.".format(data['name']))
       else:
         result = self.cmdb.create(payload=data)
         print("{} added successfully.".format(data['name']))
-        #print(result._response)
     except KeyError as err:
       print(err)
     except TypeError as err:
@@ -74,13 +70,5 @@ class Snow():
       exit()
 
     print("Deleting host: " + host + ", sys_id: " + sys_id)
-    #ch = input("Are you sure? (y/n) ")
-    ch = 'y'
-    if ch == 'n' or ch == 'N':
-      exit()
-    elif ch == 'y' or ch == 'Y':
-      resp = self.cmdb.delete(query={'sys_id': sys_id})
-      print(resp)
-    else:
-      print("What?")
+    resp = self.cmdb.delete(query={'sys_id': sys_id})
 

@@ -1,14 +1,7 @@
 import json
 
 def parse_group(groups):
-  remove = ['OracleLinux-6','OracleLinux-7','OracleLinux-8',
-              'VMware-guest','dc_une','dc_une-resources_private',
-              'resources_private','dc_eq','dc_eq-resources_private', 
-              'dc_une-resources_public','resources_public','kvm-host',
-              'dc_gs','dc_gs-resources_private','CentOS-6','CentOS-7',
-              'dc_udc','dc_udc-resources_private','eq','eq_dev','eq_prod',
-              'dc_gs-resources_public','dc_udc-resources_public',
-              'dc_eq-resources_public']
+  remove = ['OracleLinux-6','OracleLinux-7','OracleLinux-8','VMware-guest', 'resources_private','resources_public','kvm-host','CentOS-6','CentOS-7']
   for rm in remove[:]:
     if rm in groups:
       groups.remove(rm)

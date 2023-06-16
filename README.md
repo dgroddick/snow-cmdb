@@ -17,8 +17,8 @@ Should be able to do most actions with cli arguments.
 Currently there's the following:
 
 ```
---debug <hostname>
---debug-all
+--output <hostname>
+--output-all
 --add
 --update
 --delete <hostname>
