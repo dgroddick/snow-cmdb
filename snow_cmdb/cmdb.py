@@ -2,9 +2,9 @@ import os
 import sys
 import pprint
 import argparse
-from snow import Snow
 
-from helpers import *
+from .snow import Snow
+from .helpers import *
 
 sn_instance = os.getenv('SN_INSTANCE')
 sn_user = os.getenv('SN_USERNAME')
@@ -14,18 +14,18 @@ path = '/table/' + ci_table
 
 
 def main():
-  parser = argparse.ArgumentParser()
+  parser = argparse.ArgumentParser(description='A tool to manage Ansible hosts in the ServiceNow CMDB.')
 
-  parser.add_argument('--output', '-o')
-  parser.add_argument('--output-all', action='store_true')
-  parser.add_argument('--add', '-a', action='store_true')
-  parser.add_argument('--update', '-u', action='store_true')
-  parser.add_argument('--delete', '-d')
-  parser.add_argument('--delete-all', action='store_true')
+  parser.add_argument('-o', '--output', help='Print out CI data for a single host')
+  parser.add_argument('--output-all', action='store_true', help='Print out all hosts in CMDB')
+  parser.add_argument('-a', '--add', action='store_true', help='Add hosts to CMDB')
+  parser.add_argument('-u', '--update', action='store_true', help='Update hosts in CMDB')
+  parser.add_argument('-d', '--delete', help='Delete a host from the CMDB')
+  parser.add_argument('--delete-all', action='store_true', help='Delete all hosts from the CMDB')
   args = parser.parse_args()
 
   pp = pprint.PrettyPrinter(indent=4)
-  now = Snow(sn_instance, sn_user, sn_pw, path)
+  now = snow.Snow(sn_instance, sn_user, sn_pw, path)
 
   if args.output:
     # Dump out SN info for single host
