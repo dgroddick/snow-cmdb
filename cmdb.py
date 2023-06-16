@@ -6,8 +6,7 @@ from snow import Snow
 
 from helpers import *
 
-sn_instance = 'unedev'
-#sn_instance = 'uneuat'
+sn_instance = os.getenv('SN_INSTANCE')
 sn_user = os.getenv('SN_USERNAME')
 sn_pw = os.getenv('SN_PASSWORD')
 ci_table = 'cmdb_ci_linux_server'
@@ -17,22 +16,22 @@ path = '/table/' + ci_table
 def main():
   parser = argparse.ArgumentParser()
 
-  parser.add_argument('--debug')
-  parser.add_argument('--debug-all', action='store_true')
-  parser.add_argument('--add', action='store_true')
-  parser.add_argument('--update', action='store_true')
-  parser.add_argument('--delete')
+  parser.add_argument('--output', '-o')
+  parser.add_argument('--output-all', action='store_true')
+  parser.add_argument('--add', '-a', action='store_true')
+  parser.add_argument('--update', '-u', action='store_true')
+  parser.add_argument('--delete', '-d')
   parser.add_argument('--delete-all', action='store_true')
   args = parser.parse_args()
 
   pp = pprint.PrettyPrinter(indent=4)
   now = Snow(sn_instance, sn_user, sn_pw, path)
 
-  if args.debug:
+  if args.output:
     # Dump out SN info for single host
-    pp.pprint(now.get_host(args.debug))
+    pp.pprint(now.get_host(args.output))
 
-  elif args.debug_all:
+  elif args.output_all:
     # Dump hostname and sys_id for all hosts in CMDB
     pp.pprint(now.get_all_hosts())
 
@@ -44,12 +43,10 @@ def main():
       print("-- Opening {}".format(filename))
       if os.path.isfile(f):
         host = generate_ci_info(f)
-        if host is "unreachable":
+        if "unreachable" in host:
           print("{} is unreachable.".format(filename))
         else:
-          #print(args.add)
           now.add_host(host)
-          #pp.pprint(host)
 
   elif args.update: 
     # Update existing host in CMDB
@@ -58,7 +55,7 @@ def main():
       f = os.path.join(folder, filename)
       if os.path.isfile(f):
         host = generate_ci_info(f)
-        if host is "unreachable":
+        if "unreachable" in host:
           print("{} is unreachable.".format(filename))
         else:
           now.update_host(host)

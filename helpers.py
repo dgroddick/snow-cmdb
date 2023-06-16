@@ -42,7 +42,6 @@ def generate_ci_info(datafile):
 
         ci['comments'] = ', '.join(data['ansible_facts']['ansible_local']['system_info']['system_information']['system_info_sysowner_emails'])
 
-
         # OS Family
         if data['ansible_facts']['ansible_os_family'] == 'RedHat':
           ci['os'] = 'Linux Red Hat'
