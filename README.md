@@ -13,6 +13,12 @@ Run:
 python cmdb.py <arg>
 ```
 
+The ServiceNow instance connection details are taken from Linux environment variables. You should add your own details to the .env file and run
+
+```
+source .env
+```
+
 Should be able to do most actions with cli arguments.
 Currently there's the following:
 
@@ -25,8 +31,7 @@ Currently there's the following:
 --delete-all
 ```
 
-Debug and debug-all dump out the host contents from SN. Debug requires the hostname as an addition argument, debug-all just dumps everything.
-
+output and output-all dump out the host contents from SN. Output requires the hostname as an addition argument, output-all just dumps everything.
 Add and update require an 'out' folder to be present and contain Ansible host files in JSON format. These can be generated from Ansible using:
 
 ```
