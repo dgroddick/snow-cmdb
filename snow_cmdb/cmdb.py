@@ -25,7 +25,7 @@ def main():
   args = parser.parse_args()
 
   pp = pprint.PrettyPrinter(indent=4)
-  now = snow.Snow(sn_instance, sn_user, sn_pw, path)
+  now = Snow(sn_instance, sn_user, sn_pw, path)
 
   if args.output:
     # Dump out SN info for single host
