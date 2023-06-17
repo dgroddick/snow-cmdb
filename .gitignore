@@ -2,4 +2,4 @@ venv/
 __pycache__
 out
 dist/
-snow_cmdb.egg-info
+*.egg-info
